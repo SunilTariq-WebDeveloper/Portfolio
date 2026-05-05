@@ -63,7 +63,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   const handleLinkClick = (href) => {
     setMobileMenuOpen(false);
-    document.getElementById(href)?.scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById(href);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.offsetTop - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   const navLinks = [
@@ -93,7 +101,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-        className={`fixed w-full z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ${
           scrolled
             ? darkMode
               ? "bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-2xl"
@@ -110,8 +118,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               href="#home"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative group cursor-pointer"
-              onClick={() => handleLinkClick("home")}
+              className="relative group cursor-pointer z-50"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick("home");
+              }}
             >
               <div className="flex items-center gap-2">
                 <motion.div
@@ -133,16 +144,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   <span className="text-lg lg:text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                     Sunil Tariq
                   </span>
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
-                  />
                 </div>
-                {/* Mobile Logo Text */}
-                <span className="sm:hidden text-base font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  Sunil Tariq 
+                {/* Mobile Logo Text - Fixed overflow */}
+                <span className="sm:hidden text-sm font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent truncate max-w-[120px]">
+                  Sunil Tariq
                 </span>
               </div>
             </motion.a>
@@ -155,7 +160,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   href={`#${link.href}`}
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`relative px-3 lg:px-4 py-2 rounded-xl text-sm lg:text-base font-medium transition-all duration-300 ${
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick(link.href);
+                  }}
+                  className={`relative px-3 lg:px-4 py-2 rounded-xl text-sm lg:text-base font-medium transition-all duration-300 cursor-pointer ${
                     activeSection === link.href
                       ? darkMode
                         ? "text-white bg-white/10 backdrop-blur-sm"
@@ -261,12 +270,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 </AnimatePresence>
               </motion.button>
 
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu Button - Fixed positioning */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`md:hidden p-2 rounded-xl transition-all duration-300 ${
+                className={`md:hidden p-2 rounded-xl transition-all duration-300 z-50 ${
                   darkMode
                     ? "bg-white/10 text-white hover:bg-white/20"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -290,165 +299,144 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         />
       </motion.nav>
 
-      {/* Mobile Menu - Fixed positioning */}
+      {/* Mobile Menu - Fixed - Now properly positioned inside screen */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.3, type: "spring", damping: 25 }}
-            className="fixed top-0 right-0 bottom-0 w-[280px] z-50 md:hidden"
-          >
-            <div
-              className={`h-full w-full rounded-l-2xl overflow-y-auto shadow-2xl ${
-                darkMode
-                  ? "bg-black/98 backdrop-blur-xl border-l border-white/10"
-                  : "bg-white/98 backdrop-blur-xl border-l border-gray-200"
-              }`}
-            >
-              {/* Mobile Menu Header */}
-              <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-white/10">
-                <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Menu
-                </span>
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`p-2 rounded-lg ${
-                    darkMode ? "hover:bg-white/10" : "hover:bg-gray-100"
-                  }`}
-                >
-                  <FiX className="w-5 h-5" />
-                </button>
-              </div>
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+            />
 
-              <div className="py-4">
-                {navLinks.map((link, index) => (
-                  <motion.a
-                    key={link.name}
-                    href={`#${link.href}`}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    onClick={() => handleLinkClick(link.href)}
-                    className={`flex items-center gap-3 px-6 py-3 text-base font-medium transition-all duration-300 ${
-                      activeSection === link.href
-                        ? darkMode
-                          ? "text-white bg-white/10"
-                          : "text-blue-600 bg-blue-50"
-                        : darkMode
-                          ? "text-gray-400 hover:text-white hover:bg-white/5"
-                          : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+            {/* Menu Panel - Right Side Slide In */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[300px] z-50 md:hidden"
+            >
+              <div
+                className={`h-full w-full rounded-l-2xl overflow-y-auto shadow-2xl ${
+                  darkMode
+                    ? "bg-black/98 backdrop-blur-xl border-l border-white/10"
+                    : "bg-white/98 backdrop-blur-xl border-l border-gray-200"
+                }`}
+              >
+                {/* Mobile Menu Header */}
+                <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-white/10 sticky top-0 bg-inherit">
+                  <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Menu
+                  </span>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`p-2 rounded-lg transition-all ${
+                      darkMode ? "hover:bg-white/10" : "hover:bg-gray-100"
                     }`}
                   >
-                    <span className="text-xl">{link.name.split(" ")[0]}</span>
-                    {link.name.split(" ")[1] || link.name.slice(2)}
-                    {activeSection === link.href && (
-                      <motion.div
-                        layoutId="mobileActiveSection"
-                        className={`ml-auto w-1 h-6 rounded-full ${
-                          darkMode
-                            ? "bg-white"
-                            : "bg-gradient-to-r from-blue-600 to-purple-600"
-                        }`}
-                      />
-                    )}
-                  </motion.a>
-                ))}
+                    <FiX className="w-5 h-5" />
+                  </button>
+                </div>
 
-                <div className="border-t my-4 mx-4 border-gray-200 dark:border-white/10" />
+                <div className="py-4 pb-20">
+                  {navLinks.map((link, index) => (
+                    <motion.a
+                      key={link.name}
+                      href={`#${link.href}`}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleLinkClick(link.href);
+                      }}
+                      className={`flex items-center gap-3 px-6 py-3.5 text-base font-medium transition-all duration-300 cursor-pointer ${
+                        activeSection === link.href
+                          ? darkMode
+                            ? "text-white bg-white/10"
+                            : "text-blue-600 bg-blue-50"
+                          : darkMode
+                            ? "text-gray-400 hover:text-white hover:bg-white/5"
+                            : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                      }`}
+                    >
+                      <span className="text-xl">{link.name.charAt(0)}</span>
+                      <span>{link.name.slice(2)}</span>
+                      {activeSection === link.href && (
+                        <motion.div
+                          layoutId="mobileActiveSection"
+                          className={`ml-auto w-1 h-6 rounded-full ${
+                            darkMode
+                              ? "bg-white"
+                              : "bg-gradient-to-r from-blue-600 to-purple-600"
+                          }`}
+                        />
+                      )}
+                    </motion.a>
+                  ))}
 
-                {/* Mobile Social Links */}
-                <div className="px-6 py-2">
-                  <p
-                    className={`text-xs font-medium mb-3 ${darkMode ? "text-gray-500" : "text-gray-400"}`}
-                  >
-                    CONNECT WITH ME
-                  </p>
-                  <div className="flex gap-3">
-                    {socialLinks.map((social, index) => (
-                      <motion.a
-                        key={index}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`p-2.5 rounded-lg transition-all duration-300 ${
-                          darkMode
-                            ? "bg-white/10 text-gray-400 hover:text-white hover:bg-white/20"
-                            : "bg-gray-100 text-gray-600 hover:text-blue-600 hover:bg-gray-200"
-                        }`}
-                        aria-label={social.label}
-                      >
-                        <social.icon className="w-5 h-5" />
-                      </motion.a>
-                    ))}
+                  <div className="border-t my-4 mx-4 border-gray-200 dark:border-white/10" />
+
+                  {/* Mobile Social Links */}
+                  <div className="px-6 py-2">
+                    <p
+                      className={`text-xs font-medium mb-3 uppercase tracking-wider ${
+                        darkMode ? "text-gray-500" : "text-gray-400"
+                      }`}
+                    >
+                      Connect With Me
+                    </p>
+                    <div className="flex gap-3">
+                      {socialLinks.map((social, index) => (
+                        <motion.a
+                          key={index}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`p-2.5 rounded-lg transition-all duration-300 ${
+                            darkMode
+                              ? "bg-white/10 text-gray-400 hover:text-white hover:bg-white/20"
+                              : "bg-gray-100 text-gray-600 hover:text-blue-600 hover:bg-gray-200"
+                          }`}
+                          aria-label={social.label}
+                        >
+                          <social.icon className="w-5 h-5" />
+                        </motion.a>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Mobile Resume Button */}
+                  <div className="px-6 pb-4 mt-6">
+                    <motion.a
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.25 }}
+                      href="Sunil_Tariq_Web_Developer_CV.pdf"
+                      download
+                      className={`flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
+                        darkMode
+                          ? "bg-white text-black hover:bg-gray-200"
+                          : "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg"
+                      }`}
+                    >
+                      <FiDownload className="w-4 h-4" />
+                      Download Resume
+                    </motion.a>
                   </div>
                 </div>
-
-                {/* Mobile Resume Button */}
-                <div className="px-6 pb-4 mt-4">
-                  <motion.a
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.25 }}
-                    href="Sunil_Tariq_Web_Developer_CV.pdf"
-                    download
-                    className={`flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
-                      darkMode
-                        ? "bg-white text-black hover:bg-gray-200"
-                        : "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg"
-                    }`}
-                  >
-                    <FiDownload className="w-4 h-4" />
-                    Download Resume
-                  </motion.a>
-                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-
-      {/* Overlay for mobile menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => setMobileMenuOpen(false)}
-            className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Particle Effect for Dark Mode */}
-      {darkMode && (
-        <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-0.5 h-0.5 bg-white/20 rounded-full"
-              initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-              }}
-              animate={{
-                y: [null, -100],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 5 + 3,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-              }}
-            />
-          ))}
-        </div>
-      )}
     </>
   );
 };
