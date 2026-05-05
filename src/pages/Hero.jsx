@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiMail, FiDownload, FiArrowRight } from 'react-icons/fi';
 import { FaClock, FaRocket, FaSmile, FaLaptopCode } from "react-icons/fa";
+import { lazy, Suspense } from 'react';
 import { 
   SiReact, 
   SiNodedotjs, 
@@ -379,6 +380,7 @@ const stats = [
                   <div className="w-full h-full rounded-full bg-white dark:bg-black overflow-hidden relative">
                     <img
                       src={me}
+                      loading="lazy"
                       alt="Sunil Tariq - MERN Stack Developer"
                       className="w-full  h-full object-cover"
                     />
