@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiDownload, FiArrowRight } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiDownload, FiArrowRight } from 'react-icons/fi';
 import { FaClock, FaRocket, FaSmile, FaLaptopCode } from "react-icons/fa";
 import { 
   SiReact, 
   SiNodedotjs, 
   SiMongodb, 
   SiExpress, 
-  SiTailwindcss, 
-  SiTypescript, 
+  SiTailwindcss,  
   SiJavascript,
   SiHtml5,
-  SiGit,
-  SiNextdotjs
+  SiGit
 } from 'react-icons/si';
 import me from '../images/me.jpeg';
 import { DiCss3 } from 'react-icons/di';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState("");
-  const role = useMemo(
+  const roles = useMemo(
     () => [
       "MERN Stack Developer",
       "Full Stack Web Developer",
