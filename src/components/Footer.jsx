@@ -1,17 +1,32 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin} from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    { icon: FaGithub, url: "https://github.com/suniltariq", label: "GitHub", color: "hover:text-gray-700 dark:hover:text-gray-400" },
-    { icon: FaLinkedin, url: "https://linkedin.com/in/suniltariq", label: "LinkedIn", color: "hover:text-blue-600 dark:hover:text-blue-400" },
-    { icon: FaTwitter, url: "https://twitter.com/suniltariq", label: "Twitter", color: "hover:text-sky-600 dark:hover:text-sky-400" },
-    { icon: HiMail, url: "mailto:sunil.tariq@example.com", label: "Email", color: "hover:text-red-600 dark:hover:text-red-400" },
+    {
+      icon: FaGithub,
+      url: "https://github.com/SunilTariq-WebDeveloper",
+
+      label: "GitHub",
+      color: "hover:text-gray-700 dark:hover:text-gray-400",
+    },
+    {
+      icon: FaLinkedin,
+      url: "https://www.linkedin.com/in/sunil-tariq-7298523a0/",
+      label: "LinkedIn",
+      color: "hover:text-blue-600 dark:hover:text-blue-400",
+    },
+    {
+      icon: HiMail,
+      url: "mailto:sunil.tariq@example.com",
+      label: "Email",
+      color: "hover:text-red-600 dark:hover:text-red-400",
+    },
   ];
 
   const quickLinks = [
