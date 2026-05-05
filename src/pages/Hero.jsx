@@ -19,12 +19,15 @@ import { DiCss3 } from 'react-icons/di';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState("");
-  const roles = [
-    "MERN Stack Developer",
-    "Full Stack Web Developer",
-    "React Specialist",
-    "Node.js Expert"
-  ];
+  const role = useMemo(
+    () => [
+      "MERN Stack Developer",
+      "Full Stack Web Developer",
+      "React Specialist",
+      "Node.js Expert",
+    ],
+    [],
+  );
   
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);

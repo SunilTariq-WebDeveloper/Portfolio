@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { HiMail, HiPhone, HiLocationMarker, HiClock } from 'react-icons/hi';
-import { FaWhatsapp, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaWhatsapp, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { MdSend, MdCheckCircle } from 'react-icons/md';
 import { FiCopy } from 'react-icons/fi';
 
