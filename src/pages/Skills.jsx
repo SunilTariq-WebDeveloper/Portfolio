@@ -6,8 +6,7 @@ import {
   SiReact,
   SiNodedotjs,
   SiTailwindcss,
-  SiHtml5,
-  
+  SiHtml5, 
   SiJavascript,
   SiBootstrap,
 } from "react-icons/si";
