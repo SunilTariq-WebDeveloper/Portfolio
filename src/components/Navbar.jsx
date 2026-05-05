@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiSun, FiMoon, FiDownload, FiGithub, FiLinkedin } from 'react-icons/fi';
-import { SiLeetcode } from 'react-icons/si';
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [scrolled, setScrolled] = useState(false);

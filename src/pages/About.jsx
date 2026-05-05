@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   SiReact, SiNodedotjs, SiExpress, SiMongodb, 
-  SiTypescript, SiNextdotjs, SiTailwindcss, 
+   SiNextdotjs, SiTailwindcss, 
   SiJavascript, SiHtml5
 } from 'react-icons/si';
 import { 
@@ -11,9 +11,7 @@ import {
 import { 
   FaGithub, FaLinkedin, FaTwitter 
 } from 'react-icons/fa';
-import { 
-  MdWork, MdPeople, MdCode, MdVerified 
-} from 'react-icons/md';
+
 import { DiCss3 } from 'react-icons/di';
 import me from '../images/me.jpeg';
 
