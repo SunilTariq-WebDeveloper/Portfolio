@@ -47,7 +47,7 @@ const Loader = () => {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.5 }}
           className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4"
         >
           Sunil Tariq
@@ -57,7 +57,7 @@ const Loader = () => {
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.5 }}
           className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2"
         >
           {progress}%
@@ -68,7 +68,7 @@ const Loader = () => {
           <motion.div
             initial={{ width: "0%" }}
             animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.1 }}
+            transition={{ duration: 0.5 }}
             className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
           />
         </div>

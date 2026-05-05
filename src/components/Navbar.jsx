@@ -142,7 +142,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 </div>
                 {/* Mobile Logo Text */}
                 <span className="sm:hidden text-base font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  Sunil
+                  Sunil Tariq 
                 </span>
               </div>
             </motion.a>
