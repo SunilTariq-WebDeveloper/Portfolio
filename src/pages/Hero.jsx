@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import {
   FiGithub,
@@ -89,12 +89,6 @@ const Hero = () => {
     ],
     [],
   );
-
-  // Optimized background animation - using CSS instead of motion
-  const backgroundStyle = {
-    animation: "float 20s ease-in-out infinite",
-  };
-
   return (
     <section
       id="home"
