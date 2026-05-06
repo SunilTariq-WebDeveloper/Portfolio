@@ -49,7 +49,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -61,7 +60,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     };
   }, [mobileMenuOpen]);
 
-  // Close mobile menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -76,7 +74,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     setMobileMenuOpen(false);
     const element = document.getElementById(href);
     if (element) {
-      const offset = 80;
+      const offset = 70;
       const elementPosition = element.offsetTop - offset;
       window.scrollTo({
         top: elementPosition,
@@ -112,7 +110,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-        className={`fixed w-full z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ${
           scrolled
             ? darkMode
               ? "bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-2xl"
@@ -130,7 +128,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="relative group cursor-pointer flex-shrink-0"
-              onClick={() => handleLinkClick("home")}
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick("home");
+              }}
             >
               <div className="flex items-center gap-2">
                 <motion.div
@@ -159,10 +160,14 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
                   />
                 </div>
+                {/* Mobile Logo Text */}
+                <span className="sm:hidden text-sm font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  Sunil Tariq
+                </span>
               </div>
             </motion.a>
 
-            {/* Desktop Navigation - No icons */}
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1 lg:gap-2">
               {navLinks.map((link) => (
                 <motion.a
@@ -205,7 +210,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </div>
 
             {/* Right side buttons */}
-            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3">
               {/* Social Links - Desktop */}
               <div className="hidden lg:flex items-center gap-1 mr-2">
                 {socialLinks.map((social, index) => (
@@ -280,12 +285,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 </AnimatePresence>
               </motion.button>
 
-              {/* Mobile Menu Button - Fixed z-index so it stays on top */}
+              {/* Mobile Menu Button */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`md:hidden p-2 rounded-xl transition-all duration-300 z-50 relative ${
+                className={`md:hidden p-2 rounded-xl transition-all duration-300 ${
                   darkMode
                     ? "bg-white/10 text-white hover:bg-white/20"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -321,7 +326,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
             />
 
             {/* Menu Panel */}

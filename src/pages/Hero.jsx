@@ -37,7 +37,6 @@ const Hero = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Optimized typing effect
   useEffect(() => {
     const currentRole = roles[roleIndex];
     const timeout = setTimeout(
@@ -74,7 +73,6 @@ const Hero = () => {
     { value: "10+", label: "Technologies", icon: FaLaptopCode },
   ];
 
-  // Memoized rotating items
   const rotatingItems = useMemo(
     () => [
       { icon: SiReact, name: "React", color: "#61DAFB" },
@@ -89,31 +87,160 @@ const Hero = () => {
     ],
     [],
   );
+
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      style={{ paddingTop: "70px" }}
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:bg-black dark:from-black dark:via-black dark:to-black -z-10" />
 
-      {/* Optimized Animated Gradients - CSS animations for better performance */}
+      {/* Animated Gradients */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 -right-40 w-96 h-96 bg-gradient-to-r from-blue-600/20 to-purple-600/20 dark:from-blue-600/10 dark:to-purple-600/10 rounded-full blur-3xl animate-float-1" />
-        <div className="absolute bottom-20 -left-40 w-96 h-96 bg-gradient-to-r from-pink-600/20 to-orange-600/20 dark:from-pink-600/10 dark:to-orange-600/10 rounded-full blur-3xl animate-float-2" />
+        <div
+          className="absolute top-20 -right-40 w-96 h-96 bg-gradient-to-r from-blue-600/20 to-purple-600/20 dark:from-blue-600/10 dark:to-purple-600/10 rounded-full blur-3xl"
+          style={{
+            animation: "float1 20s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute bottom-20 -left-40 w-96 h-96 bg-gradient-to-r from-pink-600/20 to-orange-600/20 dark:from-pink-600/10 dark:to-orange-600/10 rounded-full blur-3xl"
+          style={{
+            animation: "float2 25s ease-in-out infinite",
+          }}
+        />
       </div>
 
       {/* Grid Pattern Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 w-full">
+        {/* Mobile: Image First, Desktop: Image Right */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
-          {/* Left Content - Reduced animation delays */}
+          
+          <div className="flex-1 flex justify-center items-center order-1 mt-12 lg:order-2">
+            <div className="relative flex items-center justify-center">
+              {/* Outer Rotating Ring */}
+              <div className="absolute w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] lg:w-[420px] lg:h-[420px]">
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    animation: "spin-slow 20s linear infinite",
+                  }}
+                >
+                  {rotatingItems.map((item, index) => {
+                    const angle = (index / rotatingItems.length) * 360;
+                    const radius = window.innerWidth >= 1024 ? 160 : 130;
+                    const x = Math.cos((angle * Math.PI) / 180) * radius;
+                    const y = Math.sin((angle * Math.PI) / 180) * radius;
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="absolute top-1/2 left-1/2 group"
+                        style={{
+                          transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+                        }}
+                      >
+                        <div className="w-7 h-7 sm:w-9 sm:h-9 lg:w-12 lg:h-12 rounded-full bg-white dark:bg-gray-900 shadow-lg flex items-center justify-center border border-gray-200 dark:border-white/20 hover:shadow-xl transition-all hover:scale-110">
+                          <Icon
+                            className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-6 lg:h-6"
+                            style={{ color: item.color }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Middle Rotating Ring */}
+              <div
+                className="absolute w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] lg:w-[380px] lg:h-[380px] rounded-full border-2 border-dashed border-blue-400/30 dark:border-blue-400/20"
+                style={{
+                  animation: "spin-slow-reverse 15s linear infinite",
+                }}
+              />
+
+              {/* Inner Rotating Ring */}
+              <div
+                className="absolute w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] lg:w-[340px] lg:h-[340px] rounded-full border border-purple-400/20 dark:border-purple-400/10"
+                style={{
+                  animation: "spin-slow 10s linear infinite",
+                }}
+              />
+
+              {/* Glow Effect */}
+              <div className="absolute w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] lg:w-[320px] lg:h-[320px] rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-2xl" />
+
+              {/* Main Image Container */}
+              <div className="relative z-10">
+                <div className="w-32 h-32 xs:w-36 xs:h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-72 lg:h-72 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-1 shadow-2xl shadow-blue-500/25">
+                  <div className="w-full h-full rounded-full bg-white dark:bg-black overflow-hidden relative">
+                    <img
+                      src={me}
+                      loading="lazy"
+                      alt="Sunil Tariq"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+                </div>
+
+                {/* Floating Badges */}
+                <div
+                  className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 lg:-top-4 lg:-right-4 bg-white dark:bg-gray-900 rounded-lg px-1.5 py-1 sm:px-2 sm:py-1.5 lg:px-3 lg:py-2 shadow-xl border border-gray-200 dark:border-white/10 backdrop-blur-sm z-20"
+                  style={{
+                    animation: "float1 3s ease-in-out infinite",
+                  }}
+                >
+                  <div className="flex items-center gap-1">
+                    <SiReact className="text-blue-500 text-xs sm:text-sm lg:text-lg" />
+                    <span className="hidden sm:inline text-xs lg:text-sm font-semibold dark:text-white">
+                      React
+                    </span>
+                  </div>
+                </div>
+
+                <div
+                  className="absolute -bottom-2 -left-2 sm:-bottom-3 sm:-left-3 lg:-bottom-4 lg:-left-4 bg-white dark:bg-gray-900 rounded-lg px-1.5 py-1 sm:px-2 sm:py-1.5 lg:px-3 lg:py-2 shadow-xl border border-gray-200 dark:border-white/10 backdrop-blur-sm z-20"
+                  style={{
+                    animation: "float2 3.5s ease-in-out infinite",
+                  }}
+                >
+                  <div className="flex items-center gap-1">
+                    <SiNodedotjs className="text-green-600 text-xs sm:text-sm lg:text-lg" />
+                    <span className="hidden sm:inline text-xs lg:text-sm font-semibold dark:text-white">
+                      Node.js
+                    </span>
+                  </div>
+                </div>
+
+                <div
+                  className="hidden lg:flex absolute top-1/2 -right-6 bg-white dark:bg-gray-900 rounded-xl px-3 py-2 shadow-xl border border-gray-200 dark:border-white/10 backdrop-blur-sm z-20"
+                  style={{
+                    animation: "pulse-slow 2s ease-in-out infinite",
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <SiMongodb className="text-green-500 text-lg" />
+                    <span className="text-sm font-semibold dark:text-white">
+                      MongoDB
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Section - Mobile pe baad mein (order-2), Desktop pe left (order-1) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex-1 text-center lg:text-left"
+            className="flex-1 text-center lg:text-left order-2 lg:order-1"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -201,15 +328,14 @@ const Hero = () => {
             >
               <a
                 href="#contact"
-                className="group relative px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2 text-sm sm:text-base overflow-hidden"
+                className="px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold text-sm sm:text-base"
               >
-                <span className="relative z-10">Get In Touch</span>
-                <FiArrowRight className="relative z-10 group-hover:translate-x-1 transition-transform" />
+                Get In Touch <FiArrowRight className="inline ml-1" />
               </a>
 
               <a
                 href="#projects"
-                className="px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all text-sm sm:text-base"
+                className="px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg font-semibold text-sm sm:text-base"
               >
                 View Projects
               </a>
@@ -217,7 +343,7 @@ const Hero = () => {
               <a
                 href="/Sunil_Tariq_Web_Developer_CV.pdf"
                 download
-                className="px-6 sm:px-8 py-2.5 sm:py-3 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-white/20 transition-all inline-flex items-center gap-2 text-sm sm:text-base"
+                className="px-6 sm:px-8 py-2.5 sm:py-3 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-300 rounded-lg font-semibold text-sm sm:text-base inline-flex items-center gap-2"
               >
                 <FiDownload /> Download CV
               </a>
@@ -231,217 +357,45 @@ const Hero = () => {
               className="flex gap-3 sm:gap-4 justify-center lg:justify-start mt-8"
             >
               {[
-                {
-                  icon: FiGithub,
-                  url: "https://github.com/SunilTariq-WebDeveloper",
-                  label: "GitHub",
-                },
-                {
-                  icon: FiLinkedin,
-                  url: "https://www.linkedin.com/in/sunil-tariq-7298523a0/",
-                  label: "LinkedIn",
-                },
-                {
-                  icon: FiMail,
-                  url: "mailto:suniltariq08@gmail.com",
-                  label: "Email",
-                },
+                { icon: FiGithub, url: "https://github.com/SunilTariq-WebDeveloper" },
+                { icon: FiLinkedin, url: "https://www.linkedin.com/in/sunil-tariq-7298523a0/" },
+                { icon: FiMail, url: "mailto:suniltariq08@gmail.com" },
               ].map((social, index) => {
                 const Icon = social.icon;
                 return (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative hover:-translate-y-1 transition-all duration-300"
-                  >
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-100 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 transition-all duration-300">
-                      <Icon className="text-gray-700 dark:text-gray-300 text-base sm:text-lg group-hover:text-white transition-colors" />
+                  <a key={index} href={social.url} target="_blank" rel="noopener noreferrer">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-100 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 transition-all">
+                      <Icon className="text-gray-700 dark:text-gray-300 text-base sm:text-lg" />
                     </div>
                   </a>
                 );
               })}
             </motion.div>
           </motion.div>
-
-          {/* Right Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex-1 flex justify-center items-center"
-          >
-            <div className="relative flex items-center justify-center">
-              {/* Outer Rotating Ring */}
-              <div className="absolute w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] lg:w-[420px] lg:h-[420px]">
-                <div className="absolute inset-0 animate-spin-slow">
-                  {rotatingItems.map((item, index) => {
-                    const angle = (index / rotatingItems.length) * 360;
-                    const radius = 160;
-                    const x = Math.cos((angle * Math.PI) / 180) * radius;
-                    const y = Math.sin((angle * Math.PI) / 180) * radius;
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={index}
-                        className="absolute top-1/2 left-1/2 group"
-                        style={{
-                          transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
-                        }}
-                      >
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white dark:bg-gray-900 shadow-lg flex items-center justify-center border border-gray-200 dark:border-white/20 hover:shadow-xl transition-all hover:scale-110">
-                          <Icon
-                            className="w-5 h-5 sm:w-6 sm:h-6"
-                            style={{ color: item.color }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Middle Rotating Ring */}
-              <div className="absolute w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] lg:w-[380px] lg:h-[380px] rounded-full border-2 border-dashed border-blue-400/30 dark:border-blue-400/20 animate-spin-slow-reverse" />
-
-              {/* Inner Rotating Ring */}
-              <div className="absolute w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] lg:w-[340px] lg:h-[340px] rounded-full border border-purple-400/20 dark:border-purple-400/10 animate-spin-slow" />
-
-              {/* Glow Effect */}
-              <div className="absolute w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] lg:w-[320px] lg:h-[320px] rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-2xl" />
-
-              {/* Main Image Container */}
-              <div className="relative z-10">
-                <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-1 shadow-2xl shadow-blue-500/25">
-                  <div className="w-full h-full rounded-full bg-white dark:bg-black overflow-hidden relative">
-                    <img
-                      src={me}
-                      loading="lazy"
-                      alt="Sunil Tariq"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  </div>
-                </div>
-
-                {/* Floating Badges */}
-                <div className="absolute -top-4 -right-4 bg-white dark:bg-gray-900 rounded-xl px-3 py-2 shadow-xl border border-gray-200 dark:border-white/10 backdrop-blur-sm z-20 animate-float-1">
-                  <div className="flex items-center gap-2">
-                    <SiReact className="text-blue-500 text-lg sm:text-xl animate-spin-slow" />
-                    <span className="text-xs sm:text-sm font-semibold dark:text-white">
-                      React
-                    </span>
-                  </div>
-                </div>
-
-                <div className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-900 rounded-xl px-3 py-2 shadow-xl border border-gray-200 dark:border-white/10 backdrop-blur-sm z-20 animate-float-2">
-                  <div className="flex items-center gap-2">
-                    <SiNodedotjs className="text-green-600 text-lg sm:text-xl" />
-                    <span className="text-xs sm:text-sm font-semibold dark:text-white">
-                      Node.js
-                    </span>
-                  </div>
-                </div>
-
-                <div className="absolute top-1/2 -right-6 bg-white dark:bg-gray-900 rounded-xl px-3 py-2 shadow-xl border border-gray-200 dark:border-white/10 backdrop-blur-sm z-20 animate-pulse-slow">
-                  <div className="flex items-center gap-2">
-                    <SiMongodb className="text-green-500 text-lg sm:text-xl" />
-                    <span className="text-xs sm:text-sm font-semibold dark:text-white">
-                      MongoDB
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
 
-      {/* CSS Animations for Performance */}
-      <style jsx>{`
+      {/* CSS Animations */}
+      <style>{`
         @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
         @keyframes spin-slow-reverse {
-          from {
-            transform: rotate(360deg);
-          }
-          to {
-            transform: rotate(0deg);
-          }
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
         }
-        @keyframes float-1 {
-          0%,
-          100% {
-            transform: translate(0, 0);
-          }
-          50% {
-            transform: translate(20px, -20px);
-          }
+        @keyframes float1 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(15px, -15px); }
         }
-        @keyframes float-2 {
-          0%,
-          100% {
-            transform: translate(0, 0);
-          }
-          50% {
-            transform: translate(-20px, 20px);
-          }
-        }
-        @keyframes bounce-y {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(10px);
-          }
-        }
-        @keyframes scroll-down {
-          0% {
-            transform: translateY(0);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(12px);
-            opacity: 0;
-          }
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(-15px, 15px); }
         }
         @keyframes pulse-slow {
-          0%,
-          100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.05);
-          }
-        }
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-        .animate-spin-slow-reverse {
-          animation: spin-slow-reverse 15s linear infinite;
-        }
-        .animate-float-1 {
-          animation: float-1 3s ease-in-out infinite;
-        }
-        .animate-float-2 {
-          animation: float-2 3.5s ease-in-out infinite;
-        }
-        .animate-bounce-y {
-          animation: bounce-y 1.5s ease-in-out infinite;
-        }
-        .animate-scroll-down {
-          animation: scroll-down 1.5s ease-in-out infinite;
-        }
-        .animate-pulse-slow {
-          animation: pulse-slow 2s ease-in-out infinite;
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
         }
       `}</style>
     </section>
