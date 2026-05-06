@@ -91,8 +91,8 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      style={{ paddingTop: "70px" }}
+      className="min-h-screen flex items-center mt-[px] justify-center relative overflow-hidden"
+      style={{ paddingTop: "14px" }}
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:bg-black dark:from-black dark:via-black dark:to-black -z-10" />
@@ -116,7 +116,7 @@ const Hero = () => {
       {/* Grid Pattern Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10 w-full">
         {/* Mobile: Image First, Desktop: Image Right */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
           
@@ -176,16 +176,16 @@ const Hero = () => {
               <div className="absolute w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] lg:w-[320px] lg:h-[320px] rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-2xl" />
 
               {/* Main Image Container */}
-              <div className="relative z-10">
+              <div className="relative  z-10">
                 <div className="w-32 h-32 xs:w-36 xs:h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-72 lg:h-72 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-1 shadow-2xl shadow-blue-500/25">
                   <div className="w-full h-full rounded-full bg-white dark:bg-black overflow-hidden relative">
                     <img
                       src={me}
                       loading="lazy"
                       alt="Sunil Tariq"
-                      className="w-full h-full object-cover"
+                      className="w-full  h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t  from-black/20 to-transparent" />
                   </div>
                 </div>
 
@@ -248,12 +248,12 @@ const Hero = () => {
               transition={{ delay: 0.2 }}
             >
               {/* Status Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 dark:from-green-500/20 dark:to-emerald-500/20 rounded-full mb-6 border border-green-500/20">
+              <div className="inline-flex items-center gap-2 mt-8 px-4 py-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 dark:from-green-500/20 dark:to-emerald-500/20 rounded-full mb-2 border border-green-500/20">
                 <div className="relative">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                   <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping opacity-75" />
                 </div>
-                <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                <span className="text-sm font-medium  text-green-600 dark:text-green-400">
                   Available for work
                 </span>
               </div>
