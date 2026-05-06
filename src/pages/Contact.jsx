@@ -62,7 +62,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-16 bg-gray-50 dark:bg-black">
+    <section id="contact" className="py-16 bg-gray-50 overflow-hidden dark:bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -93,7 +93,7 @@ const Contact = () => {
           </p>
         </motion.div>
         
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12">
           {/* Left Column - Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -118,8 +118,8 @@ const Contact = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
                       viewport={{ once: true }}
-                      whileHover={{ x: 8 }}
-                      className={`flex items-center justify-between p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 group cursor-pointer transition-all duration-300`}
+                      whileHover={{ x: 0 }}
+                      className={`flex items-center justify-between overflow-hidden p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 group cursor-pointer transition-all duration-300`}
                       onClick={() => method.link && copyToClipboard(method.value, method.label)}
                     >
                       <div className="flex items-center gap-4">
@@ -129,7 +129,7 @@ const Contact = () => {
                         <div>
                           <p className="text-xs text-gray-500 dark:text-gray-500">{method.label}</p>
                           {method.link ? (
-                            <a href={method.link} className="font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                            <a href={method.link} className="font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition break-all">
                               {method.value}
                             </a>
                           ) : (
