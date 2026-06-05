@@ -2805,8 +2805,7 @@ const Projects = () => {
       stats: { stars: 120, forks: 35 },
 
       liveLink: "https://example.com",
-      githubLink:
-        "https://github.com/SunilTariq-WebDeveloper/Restaurant-MERN-Stack",
+      githubLink: "https://github.com/SunilTariq-WebDeveloper/FlavourHub",
     },
   ];
 
