@@ -16,7 +16,7 @@ import {
   SiTailwindcss,
   SiJavascript,
   SiHtml5,
-  SiGit,
+  SiGit,  
 } from "react-icons/si";
 import me from "../images/me.jpeg";
 import { DiCss3 } from "react-icons/di";
