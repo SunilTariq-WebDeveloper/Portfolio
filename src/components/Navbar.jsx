@@ -452,7 +452,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.25 }}
-                    href="Sunil_Tariq_Web_Developer_CV.pdf"
+                    href="Sunil_Tariq_Website_Developer_CV.pdf"
                     download
                     className={`flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                       darkMode
