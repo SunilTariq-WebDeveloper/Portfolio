@@ -236,7 +236,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="Sunil_Tariq_Web_Developer_CV.pdf"
+                href="Sunil_Tariq_Website_Developer_CV.pdf"
                 download
                 className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-all duration-300 ${
                   darkMode
